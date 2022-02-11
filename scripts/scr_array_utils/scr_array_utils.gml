@@ -1,3 +1,6 @@
+#macro print show_debug_message
+#macro println print("\n")
+
 /// ---------------------------------------------
 /// ARRAY ELEMENTS MANIPULATION
 function array_sort2(array, ascend) {
@@ -63,10 +66,15 @@ function array_clear_self(array, value){
 }
 
 function array_delete_index(array, index){
+	var _arr_clone = array_clone(array);
+	array_delete_index_self(_arr_clone, index);
+	return _arr_clone;
+}
+
+function array_delete_index_self(array, index){
 	var _len = array_length(array);
 	if(index > _len) return;
 	array_delete(array, index, 1);
-	return array;
 }
 
 /// ----------------------------------------------
@@ -137,11 +145,24 @@ function array_random_item(array){
 	var _len = array_length(array);
 	if(_len == 0) return undefined;
 	
-	return array[ irandom( array_length(array) - 1) ];
+	return array[ irandom( _len - 1) ];
+}
+
+function array_last(array){
+	var _len = array_length(array);
+	if(_len == 0) return undefined;
+	
+	return array[_len - 1];	
 }
 
 /// ------------------------------------------------------
 /// ARRAY CONCAT VALUES 
+function array_foreach(array, func){
+	var i = 0; repeat(array_length(array)){
+		func(array[i++]);	
+	}
+}
+
 function array_filter(array, filter_func){
 	var _len = array_length(array);
 	var _list = ds_list_create();
@@ -156,6 +177,18 @@ function array_filter(array, filter_func){
 	var _arr = array_from_list(_list);
 	ds_list_destroy(_list);
 	return _arr;
+}
+
+function array_some(array, filter_func){
+	if(array_length(array) == 0) return undefined;
+	
+	var _arr_filter = array_filter(array, filter_func);
+	return array_length(_arr_filter) > 0;
+}
+
+function array_every(array, filter_func){
+	var _arr_filter = array_filter(array, filter_func);
+	return array_length(array) == array_length(_arr_filter);
 }
 
 function array_map(array, map_func){
@@ -187,6 +220,85 @@ function array_reduce_str(array_str){
 	
 	return _str;
 }
+
+function array_reverse(array){
+	var _len = array_length(array);
+	var _arr = array_create(_len);
+	
+	var i = 0; repeat(_len){
+		_arr[i] = array[_len - i - 1];	
+		i++;
+	}
+	
+	return _arr;
+}
+
+function array_compact(array){
+	var _func = function(val){
+		return !( (is_bool(val) && val == false) || val == undefined || val == "")
+	}
+	
+	var _arr = array_filter(array, _func);
+	return _arr;
+}
+
+function array_range(size = 1){
+	var _arr = array_create(size);
+	var i = 0; repeat(size){
+		_arr[i] = i;
+		i++;
+	}
+	
+	return _arr;
+}
+
+
+/// -----------------------------------------
+/// CANCAT ARRAYS 
+function array_merge(array1, array2){
+	var _len1 = array_length(array1);
+	var _len2 = array_length(array2);
+	var _arr = array_create(_len1 + _len2);
+	
+	array_copy(_arr, 0, array1, 0, _len1);
+	array_copy(_arr, _len1, array2, 0, _len2);
+	
+	return _arr;
+}
+
+function array_intersection(array1, array2){
+	var _list = ds_list_create();
+	
+	var i = 0; repeat(array_length(array1)){
+		if(array_contains(array2, array1[i]))
+			ds_list_add(_list, array1[i]);	
+		
+		i++;
+	}
+	
+	var _arr = array_from_list(_list);
+	ds_list_destroy(_list);
+	
+	return _arr;
+}
+
+function array_diff(array1, array2){
+	var _list = ds_list_create();
+	
+	var i = 0; repeat(array_length(array1)){
+		if(!array_contains(array2, array1[i]))
+			ds_list_add(_list, array1[i])
+			
+		i++;
+	}
+	
+	var _arr = array_from_list(_list);
+	ds_list_destroy(_list);
+	
+	return _arr;
+}
+
+/// array_chunk / array_flat / array_slice
 
 /// ------------------------------------------------------
 /// CONVERT TO / FROM ARRAY
@@ -258,7 +370,6 @@ function array_from_queue(queue){
 	var _queue_copy = ds_queue_create();
 	ds_queue_copy(_queue_copy, queue);
 	
-	
 	var i = 0; repeat(_len){
 		_arr[i] = ds_queue_dequeue(_queue_copy);
 		i++;
@@ -267,3 +378,4 @@ function array_from_queue(queue){
 	ds_queue_destroy(_queue_copy);
 	return _arr;
 }
+
