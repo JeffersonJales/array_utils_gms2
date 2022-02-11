@@ -1,7 +1,3 @@
-
-
-/// ---------------------------------------------
-/// ARRAY ELEMENTS MANIPULATION
 function array_sort2(array, ascend) {
 	var _list	= ds_list_create();
 	var _len	= array_length(array);
@@ -76,8 +72,20 @@ function array_delete_index_self(array, index){
 	array_delete(array, index, 1);
 }
 
-/// ----------------------------------------------
-/// EXTRACT AN INFORMATION FROM ARRAY
+function array_swap(array, index1, index2){
+	var _value = array[index2];
+	array[index2] = array[index1];
+	array[index1] = _value;
+	
+	return array;
+}
+
+function array_swap_self(array, index1, index2){
+	var _value = array[@ index2];
+	array[@ index2] = array[@ index1];
+	array[@ index1] = _value;
+}
+
 function array_empty(array){
 	return array_length(array) == 0;	
 }
@@ -140,7 +148,7 @@ function array_get_min_value(array){
 	return f;
 }
 
-function array_random_item(array){
+function array_get_random(array){
 	var _len = array_length(array);
 	if(_len == 0) return undefined;
 	
@@ -154,8 +162,6 @@ function array_last(array){
 	return array[_len - 1];	
 }
 
-/// ------------------------------------------------------
-/// ARRAY CONCAT VALUES 
 function array_foreach(array, func){
 	var i = 0; repeat(array_length(array)){
 		func(array[i++]);	
@@ -211,14 +217,18 @@ function array_reduce(array_real){
 	return _sum;
 }
 
-function array_join(array, space_term = ""){
+function array_join(array, sep = "", show_bound = false){
 	var _str = "", _current;
 	var _len = array_length(array)
 	var i = 0; repeat(_len){
 		_current = array[i++] ?? "";
-		_str += string(_current) + ( i == _len ? "" : space_term );
+		_str += string(_current) + ( i == _len ? "" : sep );
 	}
 	
+	if(show_bound){
+		_str += "]"
+		_str = string_insert("[", _str, 1);
+	}
 	return _str;
 }
 
@@ -254,8 +264,6 @@ function array_range(size = 1){
 }
 
 
-/// -----------------------------------------
-/// CANCAT ARRAYS 
 function array_merge(array1, array2){
 	var _len1 = array_length(array1);
 	var _len2 = array_length(array2);
@@ -315,12 +323,23 @@ function array_diff(array1, array2){
 	return _arr;
 }
 
-
-/// maybe array_chunk / array_flat / array_slice
+function array_unique(array){
+	var _list = ds_list_create();
+	
+	var i = 0; repeat(array_length(array)){
+		if(ds_list_find_index(_list, array[i]) == -1) 
+			ds_list_add(_list, array[i]);
+			
+		i++;
+	}
+	
+	var _arr = array_from_list(_list);
+	ds_list_destroy(_list);
+	return _arr;
+}
 
 /// ------------------------------------------------------
 /// CONVERT TO / FROM ARRAY
-
 /// DS_LIST 
 function array_to_list(array){
 	var _list = ds_list_create();

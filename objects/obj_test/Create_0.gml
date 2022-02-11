@@ -3,7 +3,9 @@
 
 arr1 = [0, 4, 2, 5, 3, 2];
 arr2 = [0, 4, 3, false, "", undefined, "olá"];
-arr3 = ["Hello ", "World"];
+arr3 = ["Hello", "World"];
+
+print(array_unique(arr1));
 
 print( array_join(arr1));
 print( array_join(arr1, "-"));
@@ -23,7 +25,7 @@ print(array_clone(arr2));
 
 print(array_get_max_value(arr1));
 print(array_get_min_value(arr1));
-print(array_random_item(arr1));
+print(array_get_random(arr1));
 print(array_last(arr1));
 print(array_reverse(arr1));
 print(array_compact(arr2));
@@ -44,7 +46,8 @@ print(array_map(arr1, function(value){ return value % 2 == 0 } ));
 
 println
 print(array_reduce(arr1));
-print(array_join(arr3));
+print(array_join(arr3, " ", false));
+print(array_join(arr2, " ", true));
 
 
 print(array_range(11));
