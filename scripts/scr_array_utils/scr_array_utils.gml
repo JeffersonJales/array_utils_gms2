@@ -317,7 +317,7 @@ function array_diff(array1, array2){
 }
 
 
-/// array_chunk / array_flat / array_slice
+/// maybe array_chunk / array_flat / array_slice
 
 /// ------------------------------------------------------
 /// CONVERT TO / FROM ARRAY
@@ -397,4 +397,3 @@ function array_from_queue(ds_queue){
 	ds_queue_destroy(_queue_copy);
 	return _arr;
 }
-
