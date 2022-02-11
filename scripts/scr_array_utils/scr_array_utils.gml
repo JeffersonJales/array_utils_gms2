@@ -94,7 +94,7 @@ function array_find_index(array, value){
 	return undefined;
 }
 
-function array_contains(array, value){
+function array_includes(array, value){
 	var i = 0; repeat(array_length(array)){
 		if(array[i] == value) 
 			return true;
@@ -105,7 +105,7 @@ function array_contains(array, value){
 	return false;
 }
 
-function array_contains_amount(array, value){
+function array_includes_amount(array, value){
 	var _amount = 0;
 	var i = 0; repeat(array_length(array)){
 		_amount += array[i] == value;
@@ -212,10 +212,12 @@ function array_reduce(array_real){
 	return _sum;
 }
 
-function array_reduce_str(array_str){
-	var _str = "";
-	var i = 0; repeat(array_length(array_str)){
-		_str += array_str[i++];	
+function array_join(array_str, space_term = ""){
+	var _str = "", _current;
+	var _len = array_length(array_str)
+	var i = 0; repeat(_len){
+		_current = array_str[i++] ?? "";
+		_str += string(_current) + ( i == _len ? "" : space_term );
 	}
 	
 	return _str;
@@ -266,11 +268,27 @@ function array_merge(array1, array2){
 	return _arr;
 }
 
+function array_union(array1, array2){
+	var _list = array_to_list(array1);
+	
+	var i = 0; repeat(array_length(array2)){
+		if(!array_includes(array1, array2[i]))
+			ds_list_add(_list, array2[i]);
+			
+		i++;
+	}
+	
+	var _arr = array_from_list(_list);
+	ds_list_destroy(_list);
+	
+	return _arr;
+}
+
 function array_intersection(array1, array2){
 	var _list = ds_list_create();
 	
 	var i = 0; repeat(array_length(array1)){
-		if(array_contains(array2, array1[i]))
+		if(array_includes(array2, array1[i]))
 			ds_list_add(_list, array1[i]);	
 		
 		i++;
@@ -286,7 +304,7 @@ function array_diff(array1, array2){
 	var _list = ds_list_create();
 	
 	var i = 0; repeat(array_length(array1)){
-		if(!array_contains(array2, array1[i]))
+		if(!array_includes(array2, array1[i]))
 			ds_list_add(_list, array1[i])
 			
 		i++;
@@ -297,6 +315,7 @@ function array_diff(array1, array2){
 	
 	return _arr;
 }
+
 
 /// array_chunk / array_flat / array_slice
 
@@ -314,12 +333,12 @@ function array_to_list(array){
 	return _list;
 }
 
-function array_from_list(list){
-	var _len = ds_list_size(list);
+function array_from_list(ds_list){
+	var _len = ds_list_size(ds_list);
 	var array = array_create( _len );	
 	
 	var i = 0; repeat(_len){
-		array[i] = list[| i];
+		array[i] = ds_list[| i];
 		i++;
 	}
 	
@@ -336,12 +355,12 @@ function array_to_stack(array){
 	return _stack;
 }
 
-function array_from_stack(stack){
-	var _len = ds_stack_size(stack);
+function array_from_stack(ds_stack){
+	var _len = ds_stack_size(ds_stack);
 	var _arr = array_create(_len);
 
 	var _stack_copy = ds_stack_create();
-	ds_stack_copy(_stack_copy, stack);
+	ds_stack_copy(_stack_copy, ds_stack);
 	
 	var i = 0; repeat(_len){
 		_arr[i] = ds_stack_pop(_stack_copy);
@@ -363,12 +382,12 @@ function array_to_queue(array){
 	return _queue;
 }
 
-function array_from_queue(queue){
+function array_from_queue(ds_queue){
 	
-	var _len = ds_queue_size(queue);
+	var _len = ds_queue_size(ds_queue);
 	var _arr = array_create(_len);
 	var _queue_copy = ds_queue_create();
-	ds_queue_copy(_queue_copy, queue);
+	ds_queue_copy(_queue_copy, ds_queue);
 	
 	var i = 0; repeat(_len){
 		_arr[i] = ds_queue_dequeue(_queue_copy);
