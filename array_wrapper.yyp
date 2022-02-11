@@ -1,6 +1,7 @@
 {
   "resources": [
     {"id":{"name":"scr_array_utils","path":"scripts/scr_array_utils/scr_array_utils.yy",},"order":0,},
+    {"id":{"name":"obj_test","path":"objects/obj_test/obj_test.yy",},"order":0,},
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},"order":0,},
   ],
   "Options": [

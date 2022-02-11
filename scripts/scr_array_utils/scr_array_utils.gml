@@ -1,7 +1,6 @@
-
 /// ---------------------------------------------
 /// ARRAY ELEMENTS MANIPULATION
-function array_sort(array, ascend) {
+function array_sort2(array, ascend) {
 	var _list	= ds_list_create();
 	var _len	= array_length(array);
 	
@@ -63,6 +62,13 @@ function array_clear_self(array, value){
 	}
 }
 
+function array_delete_index(array, index){
+	var _len = array_length(array);
+	if(index > _len) return;
+	array_delete(array, index, 1);
+	return array;
+}
+
 /// ----------------------------------------------
 /// EXTRACT AN INFORMATION FROM ARRAY
 function array_empty(array){
@@ -71,7 +77,9 @@ function array_empty(array){
 
 function array_find_index(array, value){
 	var i = 0; repeat(array_length(array)){
-		if(array[i] == value) return i;
+		if(array[i] == value) 
+			return i;
+		
 		i++;
 	}
 	
@@ -80,7 +88,9 @@ function array_find_index(array, value){
 
 function array_contains(array, value){
 	var i = 0; repeat(array_length(array)){
-		if(array[i] == value) return true;
+		if(array[i] == value) 
+			return true;
+		
 		i++;
 	}
 	
@@ -124,11 +134,42 @@ function array_get_min_value(array){
 }
 
 function array_random_item(array){
+	var _len = array_length(array);
+	if(_len == 0) return undefined;
+	
 	return array[ irandom( array_length(array) - 1) ];
 }
 
 /// ------------------------------------------------------
 /// ARRAY CONCAT VALUES 
+function array_filter(array, filter_func){
+	var _len = array_length(array);
+	var _list = ds_list_create();
+	
+	var i = 0; repeat(_len){
+		if(filter_func(array[i])) 
+			ds_list_add(_list, array[i]);	
+	
+		i++;
+	}
+	
+	var _arr = array_from_list(_list);
+	ds_list_destroy(_list);
+	return _arr;
+}
+
+function array_map(array, map_func){
+	var _len = array_length(array);
+	var _array_map = array_create(_len);
+	
+	var i = 0; repeat(_len){
+		_array_map[i] = map_func(array[i]);
+		i++;
+	}
+	
+	return _array_map;
+}
+
 function array_reduce(array_real){
 	var _sum = 0;
 	var i = 0; repeat(array_length(array_real)){
