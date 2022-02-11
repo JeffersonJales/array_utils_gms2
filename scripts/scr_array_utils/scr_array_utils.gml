@@ -1,23 +1,3 @@
-function array_sort2(array, ascend) {
-	var _list	= ds_list_create();
-	var _len	= array_length(array);
-	
-	var i = 0; repeat(_len){
-		_list[| i] = array[i];	
-		i++;
-	}
-	
-	ds_list_sort(_list, ascend);
-	
-	i = 0; repeat(_len){
-		array[i] = _list[| i];
-		i++
-	}
-	
-	ds_list_destroy(_list);
-	return array;
-}
-
 function array_shuffle(array){
 	var _list = ds_list_create();
 	var _len = array_length(array);
