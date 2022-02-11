@@ -1,3 +1,6 @@
+#macro print show_debug_message
+#macro println print("")
+
 arr1 = [0, 4, 2, 5, 3, 2];
 arr2 = [0, 4, 3, false, "", undefined, "olá"];
 arr3 = ["Hello ", "World"];

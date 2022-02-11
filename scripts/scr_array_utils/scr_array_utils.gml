@@ -1,5 +1,4 @@
-#macro print show_debug_message
-#macro println print("\n")
+
 
 /// ---------------------------------------------
 /// ARRAY ELEMENTS MANIPULATION
@@ -212,11 +211,11 @@ function array_reduce(array_real){
 	return _sum;
 }
 
-function array_join(array_str, space_term = ""){
+function array_join(array, space_term = ""){
 	var _str = "", _current;
-	var _len = array_length(array_str)
+	var _len = array_length(array)
 	var i = 0; repeat(_len){
-		_current = array_str[i++] ?? "";
+		_current = array[i++] ?? "";
 		_str += string(_current) + ( i == _len ? "" : space_term );
 	}
 	
