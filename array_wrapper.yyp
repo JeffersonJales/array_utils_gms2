@@ -49,9 +49,9 @@
   ],
   "IncludedFiles": [],
   "MetaData": {
-    "IDEVersion": "2022.1.1.610",
+    "IDEVersion": "2022.200.0.475",
   },
-  "resourceVersion": "1.4",
+  "resourceVersion": "1.5",
   "name": "array_wrapper",
   "tags": [],
   "resourceType": "GMProject",

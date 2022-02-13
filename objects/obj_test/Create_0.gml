@@ -17,8 +17,6 @@ print(array_union(arr1, arr2) );
 print(array_intersection(arr1, arr2));
 print(array_diff(arr1, arr2));
 
-print(array_sort2(arr1, true));
-print(array_sort2(arr1, false));
 print(array_shuffle(arr1));
 
 print(array_clone(arr2));

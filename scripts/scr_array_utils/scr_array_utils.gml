@@ -1,22 +1,24 @@
+/// ARRAY UTILS | https://github.com/JeffersonJales/array_utils_gms2
+
+/// @description With this function you can shuffle the given array
+/// @param {array} array The index of the array to shuffle
+/// @returns {array} Re-ordered array 
 function array_shuffle(array){
-	var _list = ds_list_create();
-	var _len = array_length(array);
-	
-	var i = 0; repeat(_len){
-		_list[| i] = array[i];
-		i++;
-	}
-	
+	var _list = array_to_list(array);
 	ds_list_shuffle(_list);
 	
-	i = 0; repeat(_len){
+	var i = 0; repeat(array_length(array)){
 		array[i] = _list[| i];
 		i++;
 	}
 	
+	ds_list_destroy(_list);
 	return array;
 }
 
+/// @description With this function you will copy all the given array to a new one
+/// @param {array} array The index of the array will be cloned
+/// @returns {array} An new array
 function array_clone(array){
 	var _len = array_length(array);
 	var _arr = array_create(_len);
@@ -24,6 +26,10 @@ function array_clone(array){
 	return _arr;
 }
 
+/// @description With this function you can clear the given array with a specific value
+/// @param {array} array The index of the array to shuffle
+/// @param {ArgumentIdentity} The new value for all array elements
+/// @returns {array} A cleared array
 function array_clear(array, value){
 	var i = 0; repeat(array_length(array)){
 		array[i] = value;
@@ -33,43 +39,47 @@ function array_clear(array, value){
 	return array;
 }
 
-function array_clear_self(array, value){
-		var i = 0; repeat(array_length(array)){
-		array[@ i] = value;
-		i++;
-	}
-}
-
-function array_delete_index(array, index){
-	var _arr_clone = array_clone(array);
-	array_delete_index_self(_arr_clone, index);
-	return _arr_clone;
-}
-
-function array_delete_index_self(array, index){
+/// @description With this function you can retrieve the value from the given array; It also handles out of bound index (including negative)
+/// @param {array} array The index of the array
+/// @param {Real} index The index of the array to get the value from.
+/// @return {undefined} Returns the array index value OR undefined in case the length of the array is zero (0)
+function array_get_ext(array, index){
 	var _len = array_length(array);
-	if(index > _len) return;
-	array_delete(array, index, 1);
+	if(_len == 0) return undefined;
+	
+	while(index < 0) index += _len;
+	while(index > _len) index -= _len;
+	
+	return array[index];
 }
+
+/// @description With this function you can check if the given index is inside of the bounds of the given array
+/// @param {array} array The index of the array
+/// @param {Real} index The index position to check
+/// @return {Bool} 
+function array_index_inside_bounds(array, index){
+	return index >= 0 && array_length(array) > index; 
+}
+
 
 function array_swap(array, index1, index2){
 	var _value = array[index2];
 	array[index2] = array[index1];
 	array[index1] = _value;
-	
 	return array;
 }
 
-function array_swap_self(array, index1, index2){
-	var _value = array[@ index2];
-	array[@ index2] = array[@ index1];
-	array[@ index1] = _value;
-}
-
+/// @description With this function you can check if the given array is empty or not
+/// @param {array} array The index of the array
+/// @return {Bool} 
 function array_empty(array){
 	return array_length(array) == 0;	
 }
 
+/// @description With this function you can retrieve the position of the first entry of the given value on the given array 
+/// @param {array} array The index of the array
+/// @param {real} value The value to search on the given array
+/// @return {undefined} undefined case don't find anything OR the position of the given value on the array (real)
 function array_find_index(array, value){
 	var i = 0; repeat(array_length(array)){
 		if(array[i] == value) 
@@ -81,6 +91,36 @@ function array_find_index(array, value){
 	return undefined;
 }
 
+/// @description With this function you can retrieve the position of the entry of the given value on the given array 
+/// @param {array} array The index of the array
+/// @param {real} value The value to search on the given array
+/// @return {undefined} An array with all 
+function array_find_index_all(array, value){
+	var _list = ds_list_create();
+	var i = 0; repeat(array_length(array)){
+		if(array[i] == value) 
+			ds_list_add(_list, i);	
+	}
+	
+	var _arr = array_from_list(_list);
+	ds_list_destroy(_list);
+	return _arr;
+}
+
+/// @description With this function you can remove all entries of the a given value from a given array 
+/// @param {array} array The index of the array
+/// @param {Any} value The value to remove from the array
+function array_remove(array, value){
+	var _indexes = array_find_index_all(array, value);
+	var i = 0; repeat(array_length(_indexes)){
+		array_delete(array, _indexes[i], 1);	
+	}
+}
+
+/// @description With this function you can check if the given array have the given value inside of it
+/// @param {array} array The index of the array
+/// @param {Any} value The value to check inside the array
+/// @return {Bool}
 function array_includes(array, value){
 	var i = 0; repeat(array_length(array)){
 		if(array[i] == value) 
@@ -92,6 +132,10 @@ function array_includes(array, value){
 	return false;
 }
 
+/// @description With this function you can check the amount of times the given value appears in the given array
+/// @param {array} array The index of the array
+/// @param {Any} value The value to check inside the array
+/// @return {Bool}
 function array_includes_amount(array, value){
 	var _amount = 0;
 	var i = 0; repeat(array_length(array)){
@@ -102,6 +146,9 @@ function array_includes_amount(array, value){
 	return _amount;
 }
 
+/// @description With this function you can retrieve the maximun value inside of the given array
+/// @param {Array} array The index of the array with only numbers in it
+/// @return {undefined} Undefined case array length equals zero OR the max value inside of the array
 function array_get_max_value(array){
 	var _len = array_length(array);
 	if(_len == 0) return undefined;
@@ -115,6 +162,9 @@ function array_get_max_value(array){
 	return f;
 }
 
+/// @description With this function you can retrieve the minimum value inside of the given array
+/// @param {Array} array The index of the array with only numbers in it
+/// @return {undefined} Undefined case array length equals zero OR the max value inside of the array
 function array_get_min_value(array){
 	var _len = array_length(array);
 	if(_len == 0) return undefined;
@@ -128,6 +178,7 @@ function array_get_min_value(array){
 	return f;
 }
 
+///
 function array_get_random(array){
 	var _len = array_length(array);
 	if(_len == 0) return undefined;
@@ -201,7 +252,8 @@ function array_join(array, sep = "", show_bound = false){
 	var _str = "", _current;
 	var _len = array_length(array)
 	var i = 0; repeat(_len){
-		_current = array[i++] ?? "";
+		_current = array[i++];
+		_current ??= "";
 		_str += string(_current) + ( i == _len ? "" : sep );
 	}
 	
@@ -212,28 +264,35 @@ function array_join(array, sep = "", show_bound = false){
 	return _str;
 }
 
+/// @description 
 function array_reverse(array){
+	var _arr = array_clone(array);
 	var _len = array_length(array);
-	var _arr = array_create(_len);
-	
+
 	var i = 0; repeat(_len){
-		_arr[i] = array[_len - i - 1];	
+		array[i] = _arr[_len - i - 1]; 	
 		i++;
 	}
 	
-	return _arr;
+	return array;
 }
 
+/// @description With this function you create an array from the given array removing those values: false, zero (0), ""  and undefined 
+/// @param {Array} array The index of the array
+/// @return {Array} The index of the array
 function array_compact(array){
 	var _func = function(val){
-		return !( (is_bool(val) && val == false) || val == undefined || val == "")
+		return !( val == false ||  val == "" || val == undefined )
 	}
 	
-	var _arr = array_filter(array, _func);
-	return _arr;
+	return array_filter(array, _func);
 }
 
-function array_range(size = 1){
+/// @description With this function you create an array where is length is the given size
+/// Also, all array indices will be initialized with it indice position. 
+/// @param {Real} size The size of the array to create.
+/// @return {Array} The index of the array
+function array_create_range(size = 1){
 	var _arr = array_create(size);
 	var i = 0; repeat(size){
 		_arr[i] = i;
@@ -242,7 +301,6 @@ function array_range(size = 1){
 	
 	return _arr;
 }
-
 
 function array_merge(array1, array2){
 	var _len1 = array_length(array1);
@@ -303,6 +361,11 @@ function array_diff(array1, array2){
 	return _arr;
 }
 
+
+
+/// @description With this function you creates a duplicate-free version from the given array
+/// @param {array} array The index of the array
+/// @return {array} The index of the new array
 function array_unique(array){
 	var _list = ds_list_create();
 	
@@ -318,9 +381,9 @@ function array_unique(array){
 	return _arr;
 }
 
-/// ------------------------------------------------------
-/// CONVERT TO / FROM ARRAY
-/// DS_LIST 
+/// @description With this function you create a new ds_list from an array
+/// @param {array} array The index of the array
+/// @return {Id.DsList} The index of the list
 function array_to_list(array){
 	var _list = ds_list_create();
 	var i = 0; repeat(array_length(array)){
@@ -331,6 +394,9 @@ function array_to_list(array){
 	return _list;
 }
 
+/// @description With this function you create an array from a list (ds_list)
+/// @param {Id.DsList} ds_list The index of the list
+/// @return {array} The index of the array 
 function array_from_list(ds_list){
 	var _len = ds_list_size(ds_list);
 	var array = array_create( _len );	
@@ -343,7 +409,9 @@ function array_from_list(ds_list){
 	return array;
 }
 
-/// DS_STACK
+/// @description With this function you create a new ds_stack from an array
+/// @param {array} array The index of the array
+/// @return {Id.DsStack} The index of the stack
 function array_to_stack(array){
 	var _stack = ds_stack_create();
 	var i = 0; repeat(array_length(array)){
@@ -353,6 +421,9 @@ function array_to_stack(array){
 	return _stack;
 }
 
+/// @description With this function you create an array from a stack (ds_stack)
+/// @param {Id.DsStack} ds_stack The index of the stack
+/// @return {array} The index of the array
 function array_from_stack(ds_stack){
 	var _len = ds_stack_size(ds_stack);
 	var _arr = array_create(_len);
@@ -369,7 +440,9 @@ function array_from_stack(ds_stack){
 	return _arr;
 }
 
-/// DS_QUEUE
+/// @description With this function you create a ds_queue from an array
+/// @param {array} array The index of the array
+/// @return {Id.DsQueue} The index of the queue
 function array_to_queue(array){
 	var _queue = ds_queue_create();
 	var i = 0; repeat(array_length(array)){
@@ -380,6 +453,9 @@ function array_to_queue(array){
 	return _queue;
 }
 
+/// @description With this function you create a new ds_queue from an array
+/// @param {Id.DsQueue} ds_queue The Index of the queue
+/// @return {array} The index of the array 
 function array_from_queue(ds_queue){
 	
 	var _len = ds_queue_size(ds_queue);
