@@ -1,6 +1,6 @@
 /// ARRAY UTILS | https://github.com/JeffersonJales/array_utils_gms2
 
-/// @description With this function you can shuffle the given array
+/// @description With this function you can shuffle the given array.
 /// @param {array} array The index of the array to shuffle
 /// @returns {array} Re-ordered array 
 function array_shuffle(array){
@@ -13,6 +13,33 @@ function array_shuffle(array){
 	}
 	
 	ds_list_destroy(_list);
+	return array;
+}
+
+/// @description With this function you can reverse the array indices; The first element becomes the last, and the last array element becomes the first.
+/// @param {array} array The index of the array to reverse
+/// @returns {array} Reversed array
+function array_reverse(array){
+	var _arr = array_clone(array);
+	var _len = array_length(array);
+
+	var i = 0; repeat(_len){
+		array[i] = _arr[_len - i - 1]; 	
+		i++;
+	}
+	
+	return array;
+}
+
+/// @description With this function you can swap the position of two values from the given array
+/// @param {array} array The index of the array
+/// @param {Real} index1 The first position to swap
+/// @param {Real} index2 The second position to swap
+/// @return {array} The index of the array
+function array_swap(array, index1, index2){
+	var _value = array[index2];
+	array[index2] = array[index1];
+	array[index1] = _value;
 	return array;
 }
 
@@ -61,12 +88,18 @@ function array_index_inside_bounds(array, index){
 	return index >= 0 && array_length(array) > index; 
 }
 
-
-function array_swap(array, index1, index2){
-	var _value = array[index2];
-	array[index2] = array[index1];
-	array[index1] = _value;
-	return array;
+/// @description With this function you can convert the given index value to a valid index to the given array
+/// @param {array} array The index of the array
+/// @param {Real} index The index position to convert
+/// @param {undefined} undefined case it can't be converted OR the new valid index value
+function array_index_convert(array, index){
+	var _len = array_length(array)
+	if(_len == 0) return undefined;
+	
+	while(index < 0) index += _len;
+	while(index > _len) index -= _len;
+	
+	return index;
 }
 
 /// @description With this function you can check if the given array is empty or not
@@ -91,10 +124,10 @@ function array_find_index(array, value){
 	return undefined;
 }
 
-/// @description With this function you can retrieve the position of the entry of the given value on the given array 
+/// @description With this function you can retrieve all positions of the given value on the given array 
 /// @param {array} array The index of the array
 /// @param {real} value The value to search on the given array
-/// @return {undefined} An array with all 
+/// @return {array} 
 function array_find_index_all(array, value){
 	var _list = ds_list_create();
 	var i = 0; repeat(array_length(array)){
@@ -110,11 +143,14 @@ function array_find_index_all(array, value){
 /// @description With this function you can remove all entries of the a given value from a given array 
 /// @param {array} array The index of the array
 /// @param {Any} value The value to remove from the array
+/// @param {array} The index of the array 
 function array_remove(array, value){
 	var _indexes = array_find_index_all(array, value);
 	var i = 0; repeat(array_length(_indexes)){
 		array_delete(array, _indexes[i], 1);	
 	}
+	
+	return array;
 }
 
 /// @description With this function you can check if the given array have the given value inside of it
@@ -147,7 +183,7 @@ function array_includes_amount(array, value){
 }
 
 /// @description With this function you can retrieve the maximun value inside of the given array
-/// @param {Array} array The index of the array with only numbers in it
+/// @param {Array} array The index of the array
 /// @return {undefined} Undefined case array length equals zero OR the max value inside of the array
 function array_get_max_value(array){
 	var _len = array_length(array);
@@ -163,7 +199,7 @@ function array_get_max_value(array){
 }
 
 /// @description With this function you can retrieve the minimum value inside of the given array
-/// @param {Array} array The index of the array with only numbers in it
+/// @param {Array} array The index of the array 
 /// @return {undefined} Undefined case array length equals zero OR the max value inside of the array
 function array_get_min_value(array){
 	var _len = array_length(array);
@@ -178,7 +214,9 @@ function array_get_min_value(array){
 	return f;
 }
 
-///
+/// @description With this function you can retrieve a random entry of the given array
+/// @param {Array} array The index of the array
+/// @return {Any} undefined in case length of the given array is zero OR the value of the a random entry of the given array
 function array_get_random(array){
 	var _len = array_length(array);
 	if(_len == 0) return undefined;
@@ -186,12 +224,16 @@ function array_get_random(array){
 	return array[ irandom( _len - 1) ];
 }
 
+/// @description With this function you can retrieve the last entry of the given array
+/// @param {Array} array The index of the array
+/// @return {Any} undefined in case length of the given array is zero OR the value of the last entry given array
 function array_last(array){
 	var _len = array_length(array);
 	if(_len == 0) return undefined;
 	
 	return array[_len - 1];	
 }
+
 
 function array_foreach(array, func){
 	var i = 0; repeat(array_length(array)){
@@ -262,19 +304,6 @@ function array_join(array, sep = "", show_bound = false){
 		_str = string_insert("[", _str, 1);
 	}
 	return _str;
-}
-
-/// @description 
-function array_reverse(array){
-	var _arr = array_clone(array);
-	var _len = array_length(array);
-
-	var i = 0; repeat(_len){
-		array[i] = _arr[_len - i - 1]; 	
-		i++;
-	}
-	
-	return array;
 }
 
 /// @description With this function you create an array from the given array removing those values: false, zero (0), ""  and undefined 
