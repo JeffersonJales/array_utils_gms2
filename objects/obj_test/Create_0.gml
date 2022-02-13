@@ -13,7 +13,6 @@ print( array_join(arr1, "-"));
 println
 
 print(array_merge (arr1, arr2) );
-print(array_union(arr1, arr2) );
 print(array_intersection(arr1, arr2));
 print(array_diff(arr1, arr2));
 
@@ -48,11 +47,8 @@ print(array_join(arr3, " ", false));
 print(array_join(arr2, " ", true));
 
 
-print(array_range(11));
+print(array_create_range(11));
 print(array_clear(arr1, 0));
-print(array_delete_index(arr1, 2)); 
-array_delete_index_self(arr1, 1); print(arr1);
-array_clear_self(arr1, 2); print(arr1);
 
 stack = ds_stack_create();
 ds_stack_push(stack, 0, 1, 2, 3, 4, 6);

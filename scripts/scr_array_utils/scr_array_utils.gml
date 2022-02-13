@@ -288,7 +288,6 @@ function array_every(array, filter_func){
 	return array_length(array) == array_length(_arr_filter);
 }
 
-
 /// @description With this function you creates a new array populated with the results of calling a provided function on every element in the calling array.
 /// @param {Array} array The index of the array
 /// @param {Function} map_func Function that is called for every element of the given array. Each time it executes, the returned value is added to new array.
