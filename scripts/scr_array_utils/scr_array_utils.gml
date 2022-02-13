@@ -234,13 +234,22 @@ function array_last(array){
 	return array[_len - 1];	
 }
 
-
+/// @description With this function you can loop through the given array indices executing a given function; The function will be executed for every 
+/// entry of the array, receiving the value of the array index as an argument.
+/// @param {Array} array The index of the array
+/// @param {Function} func The function that will be called to every array entry
+/// @return {N/A}
 function array_foreach(array, func){
 	var i = 0; repeat(array_length(array)){
 		func(array[i++]);	
 	}
 }
 
+/// @description With this function you creates a new array with all elements that pass the test implemented by the provided function.
+/// @param {Array} array The index of the array
+/// @param {Function} filter_func Function is a predicate, to test each element of the array. Return a value that coerces to true to keep the element, or to false otherwise.
+/// It will receive the current element being processed in the array and have to return a boolean
+/// @return {Array} array A new array with the elements that pass the test. If no elements pass the test, an empty array will be returned.
 function array_filter(array, filter_func){
 	var _len = array_length(array);
 	var _list = ds_list_create();
@@ -257,6 +266,11 @@ function array_filter(array, filter_func){
 	return _arr;
 }
 
+/// @description With this function you tests whether at least one element in the array passes the test implemented by the provided function
+/// @param {Array} array The index of the array
+/// @param {Function} filter_func Function is a predicate, to test each element of the array. Return a value that coerces to true to keep the element, or to false otherwise.
+/// It will receive the current element being processed in the array and have to return a boolean
+/// @return {Bool} Return true if at least one element pass the test
 function array_some(array, filter_func){
 	if(array_length(array) == 0) return undefined;
 	
@@ -264,11 +278,20 @@ function array_some(array, filter_func){
 	return array_length(_arr_filter) > 0;
 }
 
+/// @description With this function you tests whether all elements in the array pass the test implemented by the provided function
+/// @param {Array} array The index of the array
+/// @param {Function} filter_func Function is a predicate, to test each element of the array. Return a value that coerces to true to keep the element, or to false otherwise.
+/// It will receive the current element being processed in the array and have to return a boolean
+/// @return {Bool} Return true if all elements pass the test
 function array_every(array, filter_func){
 	var _arr_filter = array_filter(array, filter_func);
 	return array_length(array) == array_length(_arr_filter);
 }
 
+
+/// @description With this function you creates a new array populated with the results of calling a provided function on every element in the calling array.
+/// @param {Array} array The index of the array
+/// @param {Function} map_func Function that is called for every element of the given array. Each time it executes, the returned value is added to new array.
 function array_map(array, map_func){
 	var _len = array_length(array);
 	var _array_map = array_create(_len);
@@ -281,6 +304,9 @@ function array_map(array, map_func){
 	return _array_map;
 }
 
+/// @description With this function you can retrieve the sum of all elements of the given array
+/// @param {Array} array The index of the array
+/// @return {Real} The total sum
 function array_reduce(array_real){
 	var _sum = 0;
 	var i = 0; repeat(array_length(array_real)){
@@ -290,6 +316,11 @@ function array_reduce(array_real){
 	return _sum;
 }
 
+/// @description With this function you can retrieve the all elements of the given array in a string format
+/// @param {Array} array The index of the array
+/// @param {String} sep A string symbol to sep every entry
+/// @param {Bool} show_bound An flag to add the array bounds on the final string
+/// @return {String} All elements on a string
 function array_join(array, sep = "", show_bound = false){
 	var _str = "", _current;
 	var _len = array_length(array)
@@ -303,6 +334,7 @@ function array_join(array, sep = "", show_bound = false){
 		_str += "]"
 		_str = string_insert("[", _str, 1);
 	}
+	
 	return _str;
 }
 
@@ -331,6 +363,10 @@ function array_create_range(size = 1){
 	return _arr;
 }
 
+/// @description With this function you create a new array where it elements will be all the elements from both given arrays; starting with the first given array
+/// @param {Array} array1 The index of the first array
+/// @param {Array} array2 The index of the second array
+/// @return {Array} The index of the array
 function array_merge(array1, array2){
 	var _len1 = array_length(array1);
 	var _len2 = array_length(array2);
@@ -342,22 +378,10 @@ function array_merge(array1, array2){
 	return _arr;
 }
 
-function array_union(array1, array2){
-	var _list = array_to_list(array1);
-	
-	var i = 0; repeat(array_length(array2)){
-		if(!array_includes(array1, array2[i]))
-			ds_list_add(_list, array2[i]);
-			
-		i++;
-	}
-	
-	var _arr = array_from_list(_list);
-	ds_list_destroy(_list);
-	
-	return _arr;
-}
-
+/// @description With this function you create a new array where it elements will be all the elements that exists in both given arrays
+/// @param {Array} array1 The index of the first array
+/// @param {Array} array2 The index of the second array
+/// @return {Array} The index of the array
 function array_intersection(array1, array2){
 	var _list = ds_list_create();
 	
@@ -374,6 +398,10 @@ function array_intersection(array1, array2){
 	return _arr;
 }
 
+/// @description With this function you create a new array where it elements will be all the elements of the first given array that doesn't exists in the second given array
+/// @param {Array} array1 The index of the first array
+/// @param {Array} array2 The index of the second array
+/// @return {Array} The index of the array
 function array_diff(array1, array2){
 	var _list = ds_list_create();
 	
@@ -389,8 +417,6 @@ function array_diff(array1, array2){
 	
 	return _arr;
 }
-
-
 
 /// @description With this function you creates a duplicate-free version from the given array
 /// @param {array} array The index of the array
