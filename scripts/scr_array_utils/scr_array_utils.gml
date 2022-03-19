@@ -155,7 +155,8 @@ function array_find_index_all(array, value){
 function array_remove(array, value){
 	var _indexes = array_find_index_all(array, value);
 	var i = 0; repeat(array_length(_indexes)){
-		array_delete(array, _indexes[i], 1);	
+		array_delete(array, _indexes[i], 1);
+		i++;
 	}
 	
 	return array;
