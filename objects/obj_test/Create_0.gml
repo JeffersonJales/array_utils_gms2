@@ -17,6 +17,15 @@ print(array_map_ext(arr1, function(array_item, sum_value, mult_value){
 	return array_item * mult_value + sum_value;
 }, 2, 3)); 
 
+print(array_some_ext(arr3, function(arr_item, other_value){
+	return string_pos(other_value, arr_item) > 0;
+}, "A"));
+
+print(array_every_ext(arr3, function(arr_item, other_value){
+	return string_pos(other_value, arr_item) > 0;
+}, "d"));
+
+
 print(array_unique(arr1));
 
 print( array_join(arr1));

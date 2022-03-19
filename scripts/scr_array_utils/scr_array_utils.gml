@@ -339,6 +339,17 @@ function array_some(array, filter_func){
 	return array_length(_arr_filter) > 0;
 }
 
+function array_some_ext(array, filter_func, args){
+	var _arr_args = array_create(argument_count);
+	var i = 0; repeat(argument_count){
+		_arr_args[i] = argument[i]
+		i++;
+	}
+	
+	var _arr_filter = script_execute_ext(array_filter_ext, _arr_args);
+	return array_length(_arr_filter) > 0;
+}
+
 /// @description With this function you tests whether all elements in the array pass the test implemented by the provided function
 /// @param {Array} array							The index of the array
 /// @param {Function} filter_func			Function is a predicate, to test each element of the array. Return a value that coerces to true to keep the element, or to false otherwise.
@@ -346,6 +357,24 @@ function array_some(array, filter_func){
 /// @return {Bool}										Returns true if all elements pass the test
 function array_every(array, filter_func){
 	var _arr_filter = array_filter(array, filter_func);
+	return array_length(array) == array_length(_arr_filter);
+}
+
+
+/// @description With this function you tests whether all elements in the array pass the test implemented by the provided function
+/// @param {Array} array							The index of the array
+/// @param {Function} filter_func			Function is a predicate, to test each element of the array. Return a value that coerces to true to keep the element, or to false otherwise.
+/// @param {Any} args							You can parse more arguments to the function, but the first argument of the func will be always the array entry
+/// It will receive the current element being processed in the array and have to return a boolean
+/// @return {Bool}										Returns true if all elements pass the test
+function array_every_ext(array, filter_func, args){
+	var _arr_args = array_create(argument_count);
+	var i = 0; repeat(argument_count){
+		_arr_args[i] = argument[i]
+		i++;
+	}
+	
+	var _arr_filter = script_execute_ext(array_filter_ext, _arr_args);
 	return array_length(array) == array_length(_arr_filter);
 }
 
@@ -365,6 +394,11 @@ function array_map(array, map_func){
 	return _array_map;
 }
 
+/// @description With this function you creates a new array populated with the results of calling a provided function on every element in the calling array.
+/// @param {Array} array					The index of the array
+/// @param {Function} map_func		Function that is called for every element of the given array. Each time it executes, the returned value is added to new array.
+/// @param {Any} args							You can parse more arguments to the function, but the first argument of the func will be always the array entry
+/// @return {Array}								An array index
 function array_map_ext(array, map_func, args){
 	var _arr_args = array_create(argument_count - 1);
 	var i = 1; repeat(argument_count - 2){
