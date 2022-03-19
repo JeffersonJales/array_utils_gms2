@@ -23,8 +23,8 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Objects",
-    "path": "folders/Objects.yy",
+    "name": "array_wrapper",
+    "path": "array_wrapper.yyp",
   },
   "resourceVersion": "1.0",
   "name": "obj_test",
