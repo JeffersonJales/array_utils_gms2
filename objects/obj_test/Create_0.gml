@@ -5,6 +5,18 @@ arr1 = [0, 4, 2, 5, 3, 2];
 arr2 = [0, 4, 3, false, "", undefined, "olá"];
 arr3 = ["Hello", "World"];
 
+
+array_foreach_ext(arr1, function(array_item, sum_value, mult_value){ 
+													var _total = array_item * mult_value + sum_value; 
+													print(_total);
+												}, 2, 3);
+
+print(array_filter_ext(arr1, function(array_item, value_check){ return (array_item % value_check) == 0}, 2));
+
+print(array_map_ext(arr1, function(array_item, sum_value, mult_value){
+	return array_item * mult_value + sum_value;
+}, 2, 3)); 
+
 print(array_unique(arr1));
 
 print( array_join(arr1));

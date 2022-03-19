@@ -253,6 +253,29 @@ function array_foreach(array, func){
 	}
 }
 
+/// @description With this function you can loop through the given array indices executing a given function; The function will be executed for every 
+/// entry of the array, receiving the value of the array index as an argument.
+/// @param {Array} array				The index of the array
+/// @param {Function} func			The function that will be called to every array entry
+/// @param {Any} args						You can parse more arguments to the function, but the first argumento of the func will be always the array entry
+/// @return {N/A}
+function array_foreach_ext(array, func){
+	var _arr_args = array_create(argument_count - 1);
+	
+	var i = 1; repeat(argument_count - 2){
+		_arr_args[i] = argument[i + 1]
+		i++;
+	}
+	
+	var _func				= method(self, func);
+	var _func_index = method_get_index(_func);
+	
+	i = 0; repeat(array_length(array)){
+		_arr_args[0] = array[i++];
+		script_execute_ext(_func_index, _arr_args);
+	}
+}
+
 /// @description With this function you creates a new array with all elements that pass the test implemented by the provided function.
 /// @param {Array} array						The index of the array
 /// @param {Function} filter_func		Function is a predicate, to test each element of the array. Return a value that coerces to true to keep the element, or to false otherwise.
@@ -267,6 +290,36 @@ function array_filter(array, filter_func){
 			ds_list_add(_list, array[i]);	
 	
 		i++;
+	}
+	
+	var _arr = array_from_list(_list);
+	ds_list_destroy(_list);
+	return _arr;
+}
+
+/// @description With this function you creates a new array with all elements that pass the test implemented by the provided function.
+/// @param {Array} array						The index of the array
+/// @param {Function} filter_func		Function is a predicate, to test each element of the array. Return a value that coerces to true to keep the element, or to false otherwise.
+/// It will receive the current element being processed in the array and have to return a boolean
+/// @param {Any} args								You can parse more arguments to the function, but the first argument of the func will be always the array entry
+/// @return {Array} array						A new array with the elements that pass the test. If no elements pass the test, an empty array will be returned.
+function array_filter_ext(array, filter_func, args){
+	var _arr_args = array_create(argument_count - 1);
+	var i = 1; repeat(argument_count - 2){
+		_arr_args[i] = argument[i + 1]
+		i++;
+	}
+	var _func				= method(self, filter_func);
+	var _func_index = method_get_index(_func);
+	
+	var _len = array_length(array);
+	var _list = ds_list_create();
+	
+	i = 0; 
+	repeat(_len){
+		_arr_args[0] = array[i++];
+		if(script_execute_ext(_func_index, _arr_args))
+			ds_list_add(_list, _arr_args[0]);
 	}
 	
 	var _arr = array_from_list(_list);
@@ -306,6 +359,27 @@ function array_map(array, map_func){
 	
 	var i = 0; repeat(_len){
 		_array_map[i] = map_func(array[i]);
+		i++;
+	}
+	
+	return _array_map;
+}
+
+function array_map_ext(array, map_func, args){
+	var _arr_args = array_create(argument_count - 1);
+	var i = 1; repeat(argument_count - 2){
+		_arr_args[i] = argument[i + 1]
+		i++;
+	}
+	var _func				= method(self, map_func);
+	var _func_index = method_get_index(_func);
+	
+	
+	var _len = array_length(array);
+	var _array_map = array_create(_len);
+	var i = 0; repeat(_len){
+		_arr_args[0] = array[i]
+		_array_map[i] = script_execute_ext(_func_index, _arr_args);
 		i++;
 	}
 	
