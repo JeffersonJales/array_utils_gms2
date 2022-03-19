@@ -26,7 +26,7 @@ function array_reverse(array){
 	var _len = array_length(array);
 	var _value = 0, _last_index = 0;
 
-	var i = 0; repeat(_len){
+	var i = 0; repeat( floor(_len * 0.5) ){
 		_value = array[i];
 		_last_index = _len - i - 1;
 		

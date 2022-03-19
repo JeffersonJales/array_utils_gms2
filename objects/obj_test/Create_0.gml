@@ -5,7 +5,7 @@ arr1 = [0, 4, 2, 5, 3, 2];
 arr2 = [0, 4, 3, false, "", undefined, "olá"];
 arr3 = ["Hello", "World"];
 
-
+print(array_reverse(arr1));
 array_foreach_ext(arr1, function(array_item, sum_value, mult_value){ 
 													var _total = array_item * mult_value + sum_value; 
 													print(_total);
