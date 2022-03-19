@@ -259,7 +259,7 @@ function array_foreach(array, func){
 /// @param {Function} func			The function that will be called to every array entry
 /// @param {Any} args						You can parse more arguments to the function, but the first argumento of the func will be always the array entry
 /// @return {N/A}
-function array_foreach_ext(array, func){
+function array_foreach_ext(array, func, args){
 	var _arr_args = array_create(argument_count - 1);
 	
 	var i = 1; repeat(argument_count - 2){
@@ -339,6 +339,12 @@ function array_some(array, filter_func){
 	return array_length(_arr_filter) > 0;
 }
 
+/// @description With this function you tests whether at least one element in the array passes the test implemented by the provided function
+/// @param {Array} array						The index of the array
+/// @param {Function} filter_func		Function is a predicate, to test each element of the array. Return a value that coerces to true to keep the element, or to false otherwise.
+/// It will receive the current element being processed in the array and have to return a boolean
+/// @param {Any} args								You can parse more arguments to the function, but the first argument of the func will be always the array entry
+/// @return {Bool}									Return true if at least one element pass the test
 function array_some_ext(array, filter_func, args){
 	var _arr_args = array_create(argument_count);
 	var i = 0; repeat(argument_count){
@@ -362,11 +368,11 @@ function array_every(array, filter_func){
 
 
 /// @description With this function you tests whether all elements in the array pass the test implemented by the provided function
-/// @param {Array} array							The index of the array
-/// @param {Function} filter_func			Function is a predicate, to test each element of the array. Return a value that coerces to true to keep the element, or to false otherwise.
-/// @param {Any} args							You can parse more arguments to the function, but the first argument of the func will be always the array entry
+/// @param {Array} array						The index of the array
+/// @param {Function} filter_func		Function is a predicate, to test each element of the array. Return a value that coerces to true to keep the element, or to false otherwise.
 /// It will receive the current element being processed in the array and have to return a boolean
-/// @return {Bool}										Returns true if all elements pass the test
+/// @param {Any} args								You can parse more arguments to the function, but the first argument of the func will be always the array entry
+/// @return {Bool}									Returns true if all elements pass the test
 function array_every_ext(array, filter_func, args){
 	var _arr_args = array_create(argument_count);
 	var i = 0; repeat(argument_count){
@@ -421,8 +427,8 @@ function array_map_ext(array, map_func, args){
 }
 
 /// @description With this function you can retrieve the sum of all elements of the given array
-/// @param {Array} array		The index of the array
-/// @return {Real}					The total sum
+/// @param {Array} array					The index of the array
+/// @return {Real}								The total sum
 function array_reduce(array_real){
 	var _sum = 0;
 	var i = 0; repeat(array_length(array_real)){
@@ -433,10 +439,10 @@ function array_reduce(array_real){
 }
 
 /// @description With this function you can retrieve the all elements of the given array in a string format
-/// @param {Array} array				The index of the array
-/// @param {String} sep					A string symbol to sep every entry
-/// @param {Bool} show_bound		An flag to add the array bounds on the final string
-/// @return {String}						All elements on a string
+/// @param {Array} array					The index of the array
+/// @param {String} sep						A string symbol to sep every entry
+/// @param {Bool} show_bound			An flag to add the array bounds on the final string
+/// @return {String}							All elements on a string
 function array_join(array, sep = "", show_bound = false){
 	var _str = "", _current;
 	var _len = array_length(array)
@@ -455,8 +461,8 @@ function array_join(array, sep = "", show_bound = false){
 }
 
 /// @description With this function you create a new array from the given array removing those values: false, zero (0), ""  and undefined 
-/// @param {Array} array	The index of the array
-/// @return {Array}				The index of the array
+/// @param {Array} array					The index of the array
+/// @return {Array}								The index of the array
 function array_compact(array){
 	var _func = function(val){
 		return !( val == false ||  val == "" || val == undefined )
@@ -467,8 +473,8 @@ function array_compact(array){
 
 /// @description With this function you create an array where is length is the given size
 /// Also, all array indices will be initialized with it indice position. 
-/// @param {Real} size	The size of the array to create.
-/// @return {Array}			The index of the array
+/// @param {Real} size						The size of the array to create.
+/// @return {Array}								The index of the array
 function array_create_range(size = 1){
 	if(size < 0) return undefined;
 	
@@ -482,9 +488,9 @@ function array_create_range(size = 1){
 }
 
 /// @description With this function you create a new array where it elements will be all the elements from both given arrays; starting with the first given array
-/// @param {Array} array1		The index of the first array
-/// @param {Array} array2		The index of the second array
-/// @return {Array}					 The index of the array
+/// @param {Array} array1					The index of the first array
+/// @param {Array} array2					The index of the second array
+/// @return {Array}								The index of the array
 function array_merge(array1, array2){
 	var _len1 = array_length(array1);
 	var _len2 = array_length(array2);
@@ -497,9 +503,9 @@ function array_merge(array1, array2){
 }
 
 /// @description With this function you create a new array where it elements will be all the elements that exists in both given arrays
-/// @param {Array} array1		The index of the first array
-/// @param {Array} array2		The index of the second array
-/// @return {Array}					The index of the array
+/// @param {Array} array1					The index of the first array
+/// @param {Array} array2					The index of the second array
+/// @return {Array}								The index of the array
 function array_intersection(array1, array2){
 	var _list = ds_list_create();
 	
@@ -517,9 +523,9 @@ function array_intersection(array1, array2){
 }
 
 /// @description With this function you create a new array where it elements will be all the elements of the first given array that doesn't exists in the second given array
-/// @param {Array} array1		The index of the first array
-/// @param {Array} array2		The index of the second array
-/// @return {Array}					The index of the array
+/// @param {Array} array1					The index of the first array
+/// @param {Array} array2					The index of the second array
+/// @return {Array}								The index of the array
 function array_diff(array1, array2){
 	var _list = ds_list_create();
 	
@@ -537,8 +543,8 @@ function array_diff(array1, array2){
 }
 
 /// @description With this function you creates a duplicate-free version from the given array
-/// @param {array} array		The index of the array
-/// @return {array}					The index of the new array
+/// @param {array} array					The index of the array
+/// @return {array}								The index of the new array
 function array_unique(array){
 	var _list = ds_list_create();
 	
@@ -555,8 +561,8 @@ function array_unique(array){
 }
 
 /// @description With this function you create a new ds_list from an array
-/// @param {array} array		The index of the array
-/// @return {Id.DsList}			The index of the list
+/// @param {array} array					The index of the array
+/// @return {Id.DsList}						The index of the list
 function array_to_list(array){
 	var _list = ds_list_create();
 	var i = 0; repeat(array_length(array)){
@@ -583,8 +589,8 @@ function array_from_list(ds_list){
 }
 
 /// @description With this function you create a new ds_stack from an array
-/// @param {array} array		The index of the array
-/// @return {Id.DsStack}		The index of the stack
+/// @param {array} array					The index of the array
+/// @return {Id.DsStack}					The index of the stack
 function array_to_stack(array){
 	var _stack = ds_stack_create();
 	var i = 0; repeat(array_length(array)){
@@ -595,8 +601,8 @@ function array_to_stack(array){
 }
 
 /// @description With this function you create an array from a stack (ds_stack)
-/// @param {Id.DsStack} ds_stack		The index of the stack
-/// @return {array}									The index of the array
+/// @param {Id.DsStack} ds_stack	The index of the stack
+/// @return {array}								The index of the array
 function array_from_stack(ds_stack){
 	var _len = ds_stack_size(ds_stack);
 	var _arr = array_create(_len);
@@ -614,8 +620,8 @@ function array_from_stack(ds_stack){
 }
 
 /// @description With this function you create a ds_queue from an array
-/// @param {array} array		The index of the array
-/// @return {Id.DsQueue}		The index of the queue
+/// @param {array} array					The index of the array
+/// @return {Id.DsQueue}					The index of the queue
 function array_to_queue(array){
 	var _queue = ds_queue_create();
 	var i = 0; repeat(array_length(array)){
@@ -627,8 +633,8 @@ function array_to_queue(array){
 }
 
 /// @description With this function you create a new ds_queue from an array
-/// @param {Id.DsQueue} ds_queue		The Index of the queue
-/// @return {array}									The index of the array 
+/// @param {Id.DsQueue} ds_queue	The Index of the queue
+/// @return {array}								The index of the array 
 function array_from_queue(ds_queue){
 	
 	var _len = ds_queue_size(ds_queue);
