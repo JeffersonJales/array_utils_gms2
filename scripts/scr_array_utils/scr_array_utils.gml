@@ -4,15 +4,18 @@
 /// @param {array} array		The index of the array to shuffle
 /// @returns {array}				Re-ordered array 
 function array_shuffle(array){
-	var _list = array_to_list(array);
-	ds_list_shuffle(_list);
-	
-	var i = 0; repeat(array_length(array)){
-		array[i] = _list[| i];
-		i++;
+	var _len = array_length(array), 
+			_random_index = 0,
+			_value;
+			
+	while(_len != 0){
+		_random_index = irandom(--_len);
+		
+		_value = array[_len];
+		array[_len] = array[_random_index];
+		array[_random_index] = _value;
 	}
 	
-	ds_list_destroy(_list);
 	return array;
 }
 
@@ -61,7 +64,7 @@ function array_clone(array){
 /// @description With this function you can clear the given array with a specific value
 /// @param {array} array				The index of the array to shuffle
 /// @param {ArgumentIdentity}		The new value for all array elements
-/// @returns {array}						A cleared array
+/// @returns {array}						A array index
 function array_clear(array, value){
 	var i = 0; repeat(array_length(array)){
 		array[i] = value;
@@ -79,7 +82,7 @@ function array_get_ext(array, index){
 	var _len = array_length(array);
 	if(_len == 0) return undefined;
 	
-	while(index < 0) index += _len;
+	while(index < 0)		index += _len;
 	while(index > _len) index -= _len;
 	
 	return array[index];
@@ -101,7 +104,7 @@ function array_index_convert(array, index){
 	var _len = array_length(array)
 	if(_len == 0) return undefined;
 	
-	while(index < 0) index += _len;
+	while(index < 0)		index += _len;
 	while(index > _len) index -= _len;
 	
 	return index;
@@ -176,7 +179,7 @@ function array_includes(array, value){
 /// @description With this function you can check the amount of times the given value appears in the given array
 /// @param {array} array		The index of the array
 /// @param {Any} value			The value to check inside the array
-/// @return {Bool}
+/// @return {Real}
 function array_includes_amount(array, value){
 	var _amount = 0;
 	var i = 0; repeat(array_length(array)){
@@ -343,7 +346,7 @@ function array_join(array, sep = "", show_bound = false){
 	return _str;
 }
 
-/// @description With this function you create an array from the given array removing those values: false, zero (0), ""  and undefined 
+/// @description With this function you create a new array from the given array removing those values: false, zero (0), ""  and undefined 
 /// @param {Array} array	The index of the array
 /// @return {Array}				The index of the array
 function array_compact(array){
@@ -359,6 +362,8 @@ function array_compact(array){
 /// @param {Real} size	The size of the array to create.
 /// @return {Array}			The index of the array
 function array_create_range(size = 1){
+	if(size < 0) return undefined;
+	
 	var _arr = array_create(size);
 	var i = 0; repeat(size){
 		_arr[i] = i;
