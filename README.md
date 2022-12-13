@@ -3,7 +3,7 @@ Array utils for GameMaker 2022.11
 
 **All functions have JSDoc Header (for GameMaker Feather)**
 
-**Download it [here](https://github.com/JeffersonJales/array_utils_gms2/releases/tag/1.1.3)**
+**Download it [here](https://github.com/JeffersonJales/array_utils_gms2/releases/download/2.0.0/array_utils.yymps)**
 
 # Functions
 
