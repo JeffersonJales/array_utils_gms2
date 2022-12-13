@@ -1,6 +1,9 @@
-/// ARRAY UTILS | https://github.com/JeffersonJales/array_utils_gms2
+/* 
+	ARRAY UTILS | https://github.com/JeffersonJales/array_utils_gms2
+	13/12/2022
+*/
 
-/// @description With this function you can shuffle the given array.
+/// @desc With this function you can shuffle the given array.
 /// @param {Array<Any>} array The index of the array to shuffle
 /// @returns {Array<Any>} Re-ordered array 
 function array_shuffle(array){
@@ -19,7 +22,7 @@ function array_shuffle(array){
 	return array;
 }
 
-/// @description With this function you can swap the position of two values from the given array
+/// @desc With this function you can swap the position of two values from the given array
 /// @param {Array<Any>} array The index of the array
 /// @param {Real} index1 The first position to swap
 /// @param {Real} index2 The second position to swap
@@ -31,7 +34,7 @@ function array_swap(array, index1, index2){
 	return array;
 }
 
-/// @description With this function you will copy all the given array to a new one
+/// @desc With this function you will copy all the given array to a new one
 /// @param {Array<Any>} array The index of the array will be cloned
 /// @returns {Array} An new array
 function array_clone(array){
@@ -41,7 +44,7 @@ function array_clone(array){
 	return _arr;
 }
 
-/// @description With this function you can clear the given array with a given value
+/// @desc With this function you can clear the given array with a given value
 /// @param {Array<Any>} array The index of the array to shuffle
 /// @param {Any} value The new value for all array elements
 /// @returns {Array<Any>} A array index
@@ -54,7 +57,7 @@ function array_clear(array, value){
 	return array;
 }
 
-/// @description With this function you can retrieve the value from the given array; It also handles out of bound index (including negative)
+/// @desc With this function you can retrieve the value from the given array; It also handles out of bound index (including negative)
 /// @param {Array<Any>} array The index of the array
 /// @param {Real} index The index of the array to get the value from.
 /// @return {Any} The array index value OR undefined in case the length of the array is zero (0)
@@ -68,7 +71,7 @@ function array_get_ext(array, index){
 	return array[index];
 }
 
-/// @description With this function you can check if the given index is inside of the bounds of the given array
+/// @desc With this function you can check if the given index is inside of the bounds of the given array
 /// @param {Array<Any>} array The index of the array
 /// @param {Real} index The index position to check
 /// @return {Bool} 
@@ -76,14 +79,14 @@ function array_index_inside_bounds(array, index){
 	return index >= 0 && array_length(array) > index; 
 }
 
-/// @description With this function you can check if the given array is empty or not
+/// @desc With this function you can check if the given array is empty or not
 /// @param {Array<Any>} array The index of the array
 /// @return {Bool}					
 function array_empty(array){
 	return array_length(array) == 0;	
 }
 
-/// @description With this function you can retrieve the position of the first entry of the given value on the given array 
+/// @desc With this function you can retrieve the position of the first entry of the given value on the given array 
 /// @param {Array<Any>} array The index of the array
 /// @param {real} value The value to search on the given array
 /// @return {Any} undefined case don't find anything OR the position of the given value on the array (real)
@@ -98,7 +101,7 @@ function array_find_index_simple(array, value){
 	return undefined;
 }
 
-/// @description With this function you can retrieve all positions of the given value on the given array 
+/// @desc With this function you can retrieve all positions of the given value on the given array 
 /// @param {Array<Any>} array The index of the array
 /// @param {real} value The value to search on the given array
 /// @return {Array<Any>} The index of the array 
@@ -116,7 +119,7 @@ function array_find_index_all(array, value){
 	return _arr;
 }
 
-/// @description With this function you can remove all entries of the a given value from a given array 
+/// @desc With this function you can remove all entries of the a given value from a given array 
 /// @param {Array<Any>} array The index of the array
 /// @param {Any} value The value to remove from the array
 /// @return {Array<Any>} The index of the array 
@@ -130,7 +133,7 @@ function array_remove(array, value){
 	return array;
 }
 
-/// @description With this function you can check if the given array have the given value inside of it
+/// @desc With this function you can check if the given array have the given value inside of it
 /// @param {Array<Any>} array The index of the array
 /// @param {Any} value The value to check inside the array
 /// @return {Bool}
@@ -145,7 +148,7 @@ function array_includes(array, value){
 	return false;
 }
 
-/// @description With this function you can check the amount of times the given value appears in the given array
+/// @desc With this function you can check the amount of times the given value appears in the given array
 /// @param {Array<Any>} array The index of the array
 /// @param {Any} value The value to check inside the array
 /// @return {Real}
@@ -159,7 +162,7 @@ function array_includes_amount(array, value){
 	return _amount;
 }
 
-/// @description With this function you can retrieve the maximun value inside of the given array
+/// @desc With this function you can retrieve the maximun value inside of the given array
 /// @param {Array<Real>} array The index of the array
 /// @return {Any} Undefined case array length equals zero OR the max value inside of the array
 function array_get_max_value(array){
@@ -175,7 +178,7 @@ function array_get_max_value(array){
 	return f;
 }
 
-/// @description With this function you can retrieve the minimum value inside of the given array
+/// @desc With this function you can retrieve the minimum value inside of the given array
 /// @param {Array<Real>} array The index of the array 
 /// @return {Any} Undefined case array length equals zero OR the max value inside of the array
 function array_get_min_value(array){
@@ -191,7 +194,7 @@ function array_get_min_value(array){
 	return f;
 }
 
-/// @description With this function you can retrieve a random entry of the given array
+/// @desc With this function you can retrieve a random entry of the given array
 /// @param {Array<Any>} array The index of the array
 /// @return {Any} undefined in case length of the given array is zero OR the value of the a random entry of the given array
 function array_get_random(array){
@@ -201,7 +204,7 @@ function array_get_random(array){
 	return array[ irandom( _len - 1) ];
 }
 
-/// @description With this function you can retrieve the last entry of the given array
+/// @desc With this function you can retrieve the last entry of the given array
 /// @param {Array<Any>} array The index of the array
 /// @return {Any} undefined in case length of the given array is zero OR the value of the last entry given array
 function array_last(array){
@@ -211,7 +214,7 @@ function array_last(array){
 	return array[_len - 1];	
 }
 
-/// @description With this function you can loop through the given array indices executing a given function; The function will be executed for every 
+/// @desc With this function you can loop through the given array indices executing a given function; The function will be executed for every 
 /// entry of the array, receiving the value of the array index as an argument.
 /// @param {Array<Any>} array The index of the array
 /// @param {Function} func The function that will be called to every array entry
@@ -233,7 +236,7 @@ function array_foreach_args(array, func, args){
 	}
 }
 
-/// @description With this function you creates a new array with all elements that pass the test implemented by the provided function.
+/// @desc With this function you creates a new array with all elements that pass the test implemented by the provided function.
 /// @param {Array<Any>} array The index of the array
 /// @param {Function} filter_func Function is a predicate, to test each element of the array. Return a value that coerces to true to keep the element, or to false otherwise.
 /// It will receive the current element being processed in the array and have to return a boolean
@@ -263,7 +266,7 @@ function array_filter_args(array, filter_func, args){
 	return _arr;
 }
 
-/// @description With this function you tests whether at least one element in the array passes the test implemented by the provided function
+/// @desc With this function you tests whether at least one element in the array passes the test implemented by the provided function
 /// @param {Array<Any>} array The index of the array
 /// @param {Function} filter_func Function is a predicate, to test each element of the array. Return a value that coerces to true to keep the element, or to false otherwise.
 /// It will receive the current element being processed in the array and have to return a boolean
@@ -280,7 +283,7 @@ function array_any_args(array, filter_func, args){
 	return array_length(_arr_filter) > 0;
 }
 
-/// @description With this function you tests whether all elements in the array pass the test implemented by the provided function
+/// @desc With this function you tests whether all elements in the array pass the test implemented by the provided function
 /// @param {Array<Any>} array The index of the array
 /// @param {Function} filter_func Function is a predicate, to test each element of the array. Return a value that coerces to true to keep the element, or to false otherwise.
 /// It will receive the current element being processed in the array and have to return a boolean
@@ -297,7 +300,7 @@ function array_all_args(array, filter_func, args){
 	return array_length(array) == array_length(_arr_filter);
 }
 
-/// @description With this function you creates a new array populated with the results of calling a provided function on every element in the calling array.
+/// @desc With this function you creates a new array populated with the results of calling a provided function on every element in the calling array.
 /// @param {Array<Any>} array The index of the array
 /// @param {Function} map_func Function that is called for every element of the given array. Each time it executes, the returned value is added to new array.
 /// @param {Any} args You can parse more arguments to the function, but the first argument of the func will be always the array entry
@@ -325,7 +328,7 @@ function array_map_args(array, map_func, args){
 	return _array_map;
 }
 
-/// @description With this function you can retrieve the all elements of the given array in a string format
+/// @desc With this function you can retrieve the all elements of the given array in a string format
 /// @param {Array<Any>} array The index of the array
 /// @param {String} sep A string symbol to sep every entry
 /// @param {Bool} show_bound An flag to add the array bounds on the final string
@@ -347,7 +350,7 @@ function array_join(array, sep = "", show_bound = false){
 	return _str;
 }
 
-/// @description With this function you create a new array from the given array removing those values: false, zero (0), ""  and undefined 
+/// @desc With this function you create a new array from the given array removing those values: false, zero (0), ""  and undefined 
 /// @param {Array<Any>} array The index of the array
 /// @return {Array} The index of the array
 function array_compact(array){
@@ -358,7 +361,7 @@ function array_compact(array){
 	return array_filter(array, _func);
 }
 
-/// @description With this function you create an array where is length is the given size
+/// @desc With this function you create an array where is length is the given size
 /// Also, all array indices will be initialized with it indice position. 
 /// @param {Real} size The size of the array to create.
 /// @return {Array<Real>, Undefined} The index of the array
@@ -374,7 +377,7 @@ function array_create_range(size = 1){
 	return _arr;
 }
 
-/// @description With this function you create a new array where it elements will be all the elements of the first given array that doesn't exists in the second given array
+/// @desc With this function you create a new array where it elements will be all the elements of the first given array that doesn't exists in the second given array
 /// @param {Array<Any>} array1 The index of the first array
 /// @param {Array<Any>} array2 The index of the second array
 /// @return {Array<Any>} The index of the array
@@ -394,7 +397,7 @@ function array_diff(array1, array2){
 	return _arr;
 }
 
-/// @description With this function you create a new ds_list from an array
+/// @desc With this function you create a new ds_list from an array
 /// @param {Array<Any>} array The index of the array
 /// @return {Id.DsList<Any>} The index of the list
 function array_to_list(array){
@@ -407,7 +410,7 @@ function array_to_list(array){
 	return _list;
 }
 
-/// @description With this function you create an array from a list (ds_list)
+/// @desc With this function you create an array from a list (ds_list)
 /// @param {Id.DsList<Any>} ds_list The index of the list
 /// @return {Array<Any>} The index of the array 
 function array_from_list(ds_list){
@@ -422,7 +425,7 @@ function array_from_list(ds_list){
 	return array;
 }
 
-/// @description With this function you create a new ds_stack from an array
+/// @desc With this function you create a new ds_stack from an array
 /// @param {Array<Any>} array The index of the array
 /// @return {Id.DsStack<Any>} The index of the stack
 function array_to_stack(array){
@@ -434,7 +437,7 @@ function array_to_stack(array){
 	return _stack;
 }
 
-/// @description With this function you create an array from a stack (ds_stack)
+/// @desc With this function you create an array from a stack (ds_stack)
 /// @param {Id.DsStack<Any>} ds_stack The index of the stack
 /// @return {Array<Any>} The index of the array
 function array_from_stack(ds_stack){
@@ -453,7 +456,7 @@ function array_from_stack(ds_stack){
 	return _arr;
 }
 
-/// @description With this function you create a ds_queue from an array
+/// @desc With this function you create a ds_queue from an array
 /// @param {Array<Any>} array The index of the array
 /// @return {Id.DsQueue<Any>} The index of the queue
 function array_to_queue(array){
@@ -466,7 +469,7 @@ function array_to_queue(array){
 	return _queue;
 }
 
-/// @description With this function you create a new ds_queue from an array
+/// @desc With this function you create a new ds_queue from an array
 /// @param {Id.DsQueue<Any>} ds_queue The Index of the queue
 /// @return {Array<Any>} The index of the array 
 function array_from_queue(ds_queue){
