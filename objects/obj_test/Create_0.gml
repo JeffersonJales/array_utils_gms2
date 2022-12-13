@@ -1,93 +1,59 @@
+concat = function(){
+	var _str = "";
+	for(var i = 0; i < argument_count; i++){
+		_str += string(argument[i]) + " ";
+	}
+	
+	return _str;
+}
 #macro print show_debug_message
+#macro s print(concat( 
+#macro o ))
+
+
 #macro println print("")
+#macro finish game_end() exit
+
 
 arr1 = [0, 4, 2, 5, 3, 2];
 arr2 = [0, 4, 3, false, "", undefined, "olá"];
 arr3 = ["Hello", "World"];
 
-print(array_reverse(arr1));
-array_foreach_ext(arr1, function(array_item, sum_value, mult_value){ 
-													var _total = array_item * mult_value + sum_value; 
-													print(_total);
-												}, 2, 3);
+list = ds_list_create(); ds_list_add(list, 1, 6, 9, 10);
+var _arr_list = array_from_list(list);
+var _list = array_to_list(arr3);
 
-print(array_filter_ext(arr1, function(array_item, value_check){ return (array_item % value_check) == 0}, 2));
+stack = ds_stack_create(); ds_stack_push(stack, 0, 1, 2, 3, 4, 6);
+var _arr_stack = array_from_stack(stack);
+var _stack = array_to_stack(arr2);
 
-print(array_map_ext(arr1, function(array_item, sum_value, mult_value){
-	return array_item * mult_value + sum_value;
-}, 2, 3)); 
+queue = ds_queue_create(); ds_queue_enqueue(queue, 8, 4, 6, 2, 3);
+var _arr_queue = array_from_queue(queue);
+var _queue = array_to_queue(arr1)
 
-print(array_some_ext(arr3, function(arr_item, other_value){
-	return string_pos(other_value, arr_item) > 0;
-}, "A"));
+print(list)
+print(_arr_list)
+print(_list)
 
-print(array_every_ext(arr3, function(arr_item, other_value){
-	return string_pos(other_value, arr_item) > 0;
-}, "d"));
+print(stack)
+print(_arr_stack)
+print(_stack)
 
-
-print(array_unique(arr1));
-
-print( array_join(arr1));
-print( array_join(arr1, "-"));
+print(queue)
+print(_arr_queue)
+print(_queue)
 
 println
 
-print(array_merge (arr1, arr2) );
-print(array_intersection(arr1, arr2));
-print(array_diff(arr1, arr2));
+s "Array before change", arr1 o 
 
-print(array_shuffle(arr1));
+array_shuffle(arr1);
+s "Shuffled:", arr1 o
 
-print(array_clone(arr2));
+array_swap(arr1, 0, 2);
+s "Swaped:", arr1 o
 
-print(array_get_max_value(arr1));
-print(array_get_min_value(arr1));
-print(array_get_random(arr1));
-print(array_last(arr1));
-print(array_reverse(arr1));
-print(array_compact(arr2));
+array_clear(arr1, 2);
+s "Cleared:", arr1 o
 
-println
-array_foreach(arr1, function(value){ print(value); });
-println
-
-print(array_empty(arr1));
-print(array_find_index(arr1, 2));
-print(array_includes_amount(arr1, 0));
-
-print(array_filter(arr2, is_string));
-print(array_some(arr2, is_string));
-print(array_every(arr2, is_string));
-print(array_map(arr1, function(value){ return value % 2 == 0 } ));
-
-
-println
-print(array_reduce(arr1));
-print(array_join(arr3, " ", false));
-print(array_join(arr2, " ", true));
-
-
-print(array_create_range(11));
-print(array_clear(arr1, 0));
-
-stack = ds_stack_create();
-ds_stack_push(stack, 0, 1, 2, 3, 4, 6);
-
-queue = ds_queue_create();
-ds_queue_enqueue(queue, 8, 4, 6, 2, 3);
-
-arr_stack = array_from_stack(stack)
-arr_queue = array_from_queue(queue);
-
-print(arr_stack);
-print(arr_queue);
-
-stack2 = array_to_stack(arr_stack);
-queue2 = array_to_queue(arr_queue);
-
-print(stack2);
-print(queue2);
-
-
-game_end();
+finish
